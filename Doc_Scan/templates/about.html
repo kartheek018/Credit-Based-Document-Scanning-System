@@ -1,0 +1,117 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - Doc Scan</title>
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .hero {
+        background: linear-gradient(to right, #60abe0, #197ed0);
+        color: black;
+        padding: 80px 20px;
+        text-align: center;
+      }
+      .hero h1 {
+        font-weight: bold;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .about-content {
+        padding: 40px 20px;
+      }
+      .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: none;
+        margin-bottom: 20px;
+      }
+      .footer {
+        background: #343a40;
+        color: white;
+        text-align: center;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Include Navbar -->
+    {% include 'navigation.html' %}
+
+    <!-- Hero Section -->
+    <div class="hero">
+      <h1>About Doc Scan</h1>
+      <p>
+        Learn more about how Doc Scan helps you scan, match, and analyze
+        documents seamlessly.
+      </p>
+    </div>
+
+    <!-- About Content Section -->
+    <div class="container about-content">
+      <h2>What is Doc Scan?</h2>
+      <p>
+        Doc Scan is a powerful document scanning and matching system that helps
+        you analyze your documents effectively. Whether it's for document
+        similarity detection or text-based matching, Doc Scan is the solution
+        you need.
+      </p>
+      <p>
+        The system is powered by a credit-based system that allows users to
+        upload and scan documents with ease, and admins can manage credit
+        requests efficiently.
+      </p>
+
+      <h2>Key Features</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card p-3">
+            <div class="card-body">
+              <h5 class="card-title">AI-Powered Matching</h5>
+              <p class="card-text">
+                Our system uses advanced algorithms to find similar documents.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card p-3">
+            <div class="card-body">
+              <h5 class="card-title">Credit-Based System</h5>
+              <p class="card-text">
+                Start with 20 free credits per day and request more as needed.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card p-3">
+            <div class="card-body">
+              <h5 class="card-title">Secure & Fast</h5>
+              <p class="card-text">
+                All documents are scanned and stored securely for your peace of
+                mind.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Why Choose Doc Scan?</h2>
+      <p>
+        Whether you're working on a personal project or need to scan large
+        volumes of documents, Doc Scan provides a reliable and easy-to-use
+        platform for document analysis. Our AI-powered algorithms ensure you get
+        accurate results, while the credit-based system helps manage resources
+        effectively.
+      </p>
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,124 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile - Doc_Scan</title>
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .container {
+        margin-top: 30px;
+      }
+      .card {
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Include Navbar -->
+    {% include 'navigation.html' %}
+
+    <div class="container">
+      <div class="row">
+        <!-- Credits Card -->
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Available Credits</h5>
+              <h2 class="text-primary">{{ user_profile.credits }}</h2>
+              <a href="{% url 'request_credits' %}" class="btn btn-warning"
+                >Request More Credits</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scan Records Table -->
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0">Scan Records</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Scanned Document</th>
+                    <th>Matched Document</th>
+                    <th>Match Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for record in scan_records %}
+                  <tr>
+                    <td>{{ record.scanned_document }}</td>
+                    <td>{{ record.matched_document }}</td>
+                    <td>{{ record.match_score }}%</td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                    <td colspan="3" class="text-center">
+                      No scan records found.
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Credit Requests Table -->
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0">Credit Requests</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Requested Credits</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for request in credit_requests %}
+                  <tr>
+                    <td>{{ request.requested_credits }}</td>
+                    <td>
+                      {% if request.approved %}
+                      <span class="badge bg-success">Approved</span>
+                      {% else %}
+                      <span class="badge bg-warning text-dark">Pending</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                    <td colspan="2" class="text-center">
+                      No credit requests found.
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  </body>
+</html>

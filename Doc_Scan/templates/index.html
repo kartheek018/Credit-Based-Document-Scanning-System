@@ -1,0 +1,149 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - Doc_Scan</title>
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .navbar {
+        background-color: white;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: black !important;
+      }
+      .nav-link {
+        color: black !important;
+        font-weight: 500;
+      }
+      .hero {
+        background: linear-gradient(to right, #60abe0, #197ed0);
+        color: black;
+        padding: 80px 20px;
+        text-align: center;
+      }
+      .hero h1 {
+        font-weight: bold;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .btn-custom {
+        background-color: white;
+        color: #007bff;
+        font-weight: bold;
+        padding: 12px 25px;
+        border-radius: 30px;
+        transition: 0.3s;
+      }
+      .btn-custom:hover {
+        background-color: #f0f0f0;
+      }
+      .divider {
+        width: 80px;
+        height: 4px;
+        background-color: #007bff;
+        margin: 20px auto;
+        border-radius: 2px;
+      }
+      .feature {
+        padding: 60px 20px;
+        text-align: center;
+      }
+      .feature-card {
+        padding: 30px;
+        border-radius: 12px;
+        background: white;
+        transition: 0.3s;
+      }
+      .feature-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+      }
+      .footer {
+        background: #343a40;
+        color: white;
+        text-align: center;
+        padding: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="index">Doc Scan</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Register</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+      <h1>Welcome to Doc Scan</h1>
+      <p>Scan, Match, and Analyze Documents with Ease</p>
+      <a href="/register" class="btn btn-custom btn-lg mt-3">Scan document</a>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Features Section -->
+    <div class="container feature">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="feature-card shadow-lg">
+            <h3>AI-Powered Matching</h3>
+            <p>Find document similarities with advanced AI algorithms.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-card shadow-lg">
+            <h3>Credit-Based System</h3>
+            <p>Start with 20 free credits daily. Request more when needed.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-card shadow-lg">
+            <h3>Secure & Fast</h3>
+            <p>Your documents are scanned and stored securely.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Request Credits - Doc_Scan</title>
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .hero {
+        background: linear-gradient(to right, #60abe0, #197ed0);
+        color: black;
+        padding: 80px 20px;
+        text-align: center;
+      }
+      .hero h1 {
+        font-weight: bold;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .request-form {
+        padding: 40px 20px;
+      }
+      .footer {
+        background: #343a40;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        margin-top: 40px;
+      }
+      .table-container {
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Include Navbar -->
+    {% include 'navigation.html' %}
+
+    <!-- Hero Section -->
+    <div class="hero">
+      <h1>Request Additional Credits</h1>
+      <p>Request more credits if you have exhausted your daily free limit.</p>
+    </div>
+
+    <!-- Request Credits Form -->
+    <div class="container request-form">
+      <h3>Request Credits</h3>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="requested_credits" class="form-label"
+            >Credits to Request</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            id="requested_credits"
+            name="requested_credits"
+            min="1"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Request</button>
+      </form>
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  </body>
+</html>

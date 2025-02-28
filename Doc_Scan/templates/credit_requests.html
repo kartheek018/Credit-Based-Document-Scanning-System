@@ -1,0 +1,54 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+
+{% block body %} {% include 'navigation.html' %}
+<div class="container mt-5">
+  <h2>Credit Requests</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Requested Credits</th>
+        <th>Date Submitted</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for request in credit_requests %}
+      <tr>
+        <td>{{ request.user.username }}</td>
+        <td>{{ request.requested_credits }}</td>
+        <td>{{ request.created_at }}</td>
+        <td>
+          {% if request.approved == 1 %}
+          <span class="badge bg-success">Approved</span>
+          {% elif request.approved == 2 %}
+          <span class="badge bg-danger">Denied</span>
+          {% else %}
+          <span class="badge bg-warning text-dark">Pending</span>
+          {% endif %}
+        </td>
+        <td>
+          <!-- Show Approve and Deny buttons only if Pending -->
+          {% if request.approved == 0 %}
+          <a
+            href="{% url 'approve_credit_request' request.id %}"
+            class="btn btn-success btn-sm"
+            >Approve</a
+          >
+          <a
+            href="{% url 'deny_credit_request' request.id %}"
+            class="btn btn-danger btn-sm"
+            >Deny</a
+          >
+          {% else %}
+          <span class="text-muted">No action needed</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

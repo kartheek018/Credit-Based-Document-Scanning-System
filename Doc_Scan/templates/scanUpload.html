@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scan Documents - Doc_Scan</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .hero {
+        background: linear-gradient(to right, #60abe0, #197ed0);
+        color: white;
+        padding: 80px 20px;
+        text-align: center;
+      }
+      .hero h1 {
+        font-weight: bold;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .container {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'navigation.html' %}
+
+    <div class="hero">
+      <h1>Scan and Match Your Documents</h1>
+      <p>Upload your document to scan and compare it with existing ones.</p>
+
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="document" required />
+        <button type="submit" class="btn btn-light btn-sm">Start Scan</button>
+      </form>
+    </div>
+
+    <div class="container">
+      {% if file_name %}
+      <p><strong>Uploaded File:</strong> {{ file_name }}</p>
+      {% endif %} {% if similarity_scores %}
+      <h3 class="mt-4">Similarity Scores</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Document Name</th>
+            <th>Similarity Score (%)</th>
+            <th>Similar Content</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for doc, score, similar_content in similarity_scores %}
+          <tr>
+            <td>
+              <a href="{{ doc.file.url }}" target="_blank"
+                >{{ doc.file.name }}</a
+              >
+            </td>
+            <td>{{ score }}</td>
+            <td>{{ similar_content }}</td>
+            <td>
+              <a
+                href="{{ doc.file.url }}"
+                class="btn btn-sm btn-primary"
+                download
+                >Download</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  </body>
+</html>

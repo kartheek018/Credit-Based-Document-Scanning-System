@@ -1,0 +1,89 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+
+{% block content %} {% include 'navigation.html' %}
+<div class="container mt-4">
+  <h2>Admin Profile</h2>
+
+  <!-- Upload New Document -->
+  <h3>Upload Document</h3>
+  <form
+    action="{% url 'upload_document' %}"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %}
+    <input type="file" name="document" class="form-control mb-2" required />
+    <button type="submit" class="btn btn-primary">Upload</button>
+  </form>
+
+  <!-- Uploaded Documents Table -->
+  <h3 class="mt-4">Uploaded Documents</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Document</th>
+        <th>Uploaded On</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for document in documents %}
+      <tr>
+        <td>
+          <a href="{{ document.file.url }}" target="_blank"
+            >{{ document.file.name }}</a
+          >
+        </td>
+        <td>{{ document.uploaded_at }}</td>
+        <td>
+          <form action="{% url 'delete_document' document.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Credit Requests Table -->
+  <h3 class="mt-4">Credit Requests</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Requested Credits</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for request in credit_requests %}
+      <tr>
+        <td>{{ request.user.username }}</td>
+        <td>{{ request.requested_credits }}</td>
+        <td>{{ request.status }}</td>
+        <td>
+          {% if request.status == "Pending" %}
+          <a
+            href="{% url 'approve_credit_request' request.id %}"
+            class="btn btn-success btn-sm"
+            >Approve</a
+          >
+          <a
+            href="{% url 'deny_credit_request' request.id %}"
+            class="btn btn-danger btn-sm"
+            >Deny</a
+          >
+          {% else %}
+          <span class="text-muted">Processed</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

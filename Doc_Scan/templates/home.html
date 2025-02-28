@@ -1,0 +1,145 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - Doc_Scan</title>
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .hero {
+        background: linear-gradient(to right, #60abe0, #197ed0);
+        color: black;
+        padding: 80px 20px;
+        text-align: center;
+      }
+      .hero h1 {
+        font-weight: bold;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .about-content {
+        padding: 40px 20px;
+      }
+      .footer {
+        background: #343a40;
+        color: white;
+        text-align: center;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Include Navbar -->
+    {% include 'navigation.html' %}
+
+    <!-- Hero Section -->
+    {% if user.is_staff %}
+    <div class="hero">
+      <h1>Welcome to Doc Scan</h1>
+      <p>Upload new documents for users</p>
+      <a href="/upload_document" class="btn btn-custom btn-lg mt-3"
+        >upload Document</a
+      >
+    </div>
+    {% else %}
+    <div class="hero">
+      <h1>Welcome to Doc Scan</h1>
+      <p>Scan, Match, and Analyze Documents with Ease</p>
+      <a href="/scanUpload" class="btn btn-custom btn-lg mt-3"
+        >Scan Document</a
+      >
+    </div>
+    {% endif %}
+
+    <!-- About Content Section -->
+    <div class="container about-content">
+      <div class="row text-center">
+        <div class="col-md-4">
+          <div class="card shadow p-3 mb-4">
+            <div class="card-body">
+              <h4 class="card-title">AI-Powered Matching</h4>
+              <p class="card-text">
+                Find document similarities with advanced AI algorithms.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow p-3 mb-4">
+            <div class="card-body">
+              <h4 class="card-title">Credit-Based System</h4>
+              <p class="card-text">
+                Start with 20 free credits daily. Request more when needed.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow p-3 mb-4">
+            <div class="card-body">
+              <h4 class="card-title">Secure & Fast</h4>
+              <p class="card-text">
+                Your documents are scanned and stored securely.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if user.is_staff %}
+    <div class="container mt-5">
+      <h2>Pending Credit Requests ({{ pending_count }})</h2>
+      {% if pending_requests %}
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Requested Credits</th>
+            <th>Date Submitted</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for request in pending_requests %}
+          <tr>
+            <td>{{ request.user.username }}</td>
+            <td>{{ request.requested_credits }}</td>
+            <td>{{ request.created_at }}</td>
+            <td>
+              <span class="badge bg-warning text-dark">Pending</span>
+            </td>
+            <td>
+              <a
+                href="{% url 'approve_credit_request' request.id %}"
+                class="btn btn-success btn-sm"
+                >Approve</a
+              >
+              <a
+                href="{% url 'deny_credit_request' request.id %}"
+                class="btn btn-danger btn-sm"
+                >Deny</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No pending credit requests.</p>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Footer -->
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  </body>
+</html>
